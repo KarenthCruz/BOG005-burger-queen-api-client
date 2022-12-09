@@ -2,15 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useModal } from "../hooks/useModal.js";
 import { AddProductModal } from "../components/addProductModal.jsx";
 import { EditProductModal } from "../components/editProductModal.jsx";
-import { getProductList, postNewProduct, getProductById, patchProduct } from "../utils/petitions.js";
+import {
+    getProductList,
+    postNewProduct,
+    getProductById,
+    patchProduct,
+    eraseProduct,
+    obtainImgURL
+} from "../utils/petitions.js";
 import { ProductComponent } from "../components/productComponent.jsx";
+import { Header } from "../components/header";
 
 
 function AdminView() {
-    const [isOpenAddProductModal, openAddProductModal, closeAddProductModal] = useModal();
-    const [isOpenEditProductModal, openEditProductModal, closeEditProductModal] = useModal();
+    const [isOpenAddProductModal, openAddProductModal, closeAddProductModal] = useModal('');
+    const [isOpenEditProductModal, openEditProductModal, closeEditProductModal] = useModal('');
     const [products, setProducts] = useState([]);
-    const [productToEditModal, setProductToEditModal] = useState();
+    const [productToEditModal, setProductToEditModal] = useState({ id: '', name:'', price:'', type:'', urlImage:''});
     const [reloadProducts, setReloadProducts] = useState(false);
     const [nameProduct, setNameProduct] = useState('')
     const [priceProduct, setPriceProduct] = useState('')
@@ -62,16 +70,10 @@ function AdminView() {
         event.preventDefault();
         const priceNumber = parseInt(priceTyped);
         console.log('nameTyped, priceNumber, typeTyped, imageLoaded', nameTyped, priceNumber, typeTyped, imageLoaded)
-        postNewProduct(nameTyped, priceNumber, typeTyped, imageLoaded).then(
+        postNewProduct(nameTyped, priceNumber, typeTyped, imageLoaded).then(() => {
             closeAddProductModal()
-        );
-
-        setProducts([...products, {
-            name: nameTyped,
-            price: priceTyped,
-            type: typeTyped,
-            image: imageLoaded
-        }]);
+            setReloadProducts(!reloadProducts);
+        });
     };
 
     function onSubmitEditFormHandler(event, nameTyped, priceTyped, typeTyped, imageLoaded, idProduct) {
@@ -83,8 +85,7 @@ function AdminView() {
         });
     };
 
-
-    const handelEdit = (id) => {
+    const handleEdit = (id) => {
         console.log('id', id)
         getProductById(id).then((response) => {
             console.log('response', response.data)
@@ -93,12 +94,13 @@ function AdminView() {
         })
     }
 
+    const handleDelete = (id) => {
+        eraseProduct(id).then(() => setReloadProducts(!reloadProducts))
+    }
+
     return ( // Maqueta componente Admin view
         <main className="adminView">
-            <header className="header">
-                <div className="headerImg">
-                    <img srcSet="/bigFoodsLarge.png" className="headerLogoBig" alt="Burger logo" />
-                </div>
+            <Header>
                 <nav className="navMenu">
                     <ul className="navAMenu">
                         <li><a className="navLink" href="/admin-products">Productos</a></li>
@@ -106,13 +108,24 @@ function AdminView() {
                         <li><a className="navLink" href="/">Salir</a></li>
                     </ul>
                 </nav>
-            </header>
+            </Header>
 
             <section className="producSect">
                 {/* // Lista de productos */}
                 <section className="productsList">
                     <h1 className="titleListProduct">Lista de Productos</h1>
-                    {products.map((product) => <ProductComponent onClick={handelEdit} key={product.id} id={product.id} name={product.name} price={product.price} type={product.type} image={product.image} />)}
+                    {products.map((product, index) => (
+                        <ProductComponent
+                            handleEdit={handleEdit}
+                            handleDelete={handleDelete}
+                            key={product.id + index}
+                            id={product.id}
+                            name={product.name}
+                            price={product.price}
+                            type={product.type}
+                            image={product.image}
+                        />
+                    ))}
                 </section>
                 {productToEditModal && (<section className="AdminContBtn">
                     <EditProductModal
@@ -120,6 +133,7 @@ function AdminView() {
                         closeModal={closeEditProductModal}
                         onSubmit={onSubmitEditFormHandler}
                         product={productToEditModal}
+                        setProduct={setProductToEditModal}
                     >
                     </EditProductModal>
                 </section>)}
@@ -134,6 +148,7 @@ function AdminView() {
                 <button onClick={openAddProductModal} className="addProductBtn">
                     Agregar Producto
                 </button>
+                
                 {/* Formulario para agregar productos */}
                 <section className="addProdForm">
                     <section className="addProModal">
@@ -141,7 +156,7 @@ function AdminView() {
                             Crear Producto
                         </h2>
 
-                        <form className="addProductForm" onSubmit={(event) => props.onSubmit(event, nameProduct, priceProduct, typeMenu, imgProduct)} >
+                        <form className="addProductForm" onSubmit={(event) => onSubmitCreateFormHandler(event, nameProduct, priceProduct, typeMenu, imgProduct)} >
                             <input
                                 className="addProductInput"
                                 type='text'

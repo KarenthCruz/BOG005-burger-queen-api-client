@@ -75,7 +75,7 @@
     font-size: 4.3vw;
     text-align: center;
     border-radius: 2vw;
-    border: 0.5vw solid white;
+    border: 0.1vw solid white;
 }
 
 .addProductInput:focus {
@@ -181,10 +181,16 @@
     border-radius: 20px;
     margin: 10px 0;
     align-items: center;
+    justify-content: space-between;
+}
+
+.productDetails{
+    display: flex;
 }
 
 .productImage {
     width: 70px;
+    height: 70px;
 }
 
 .productText {
@@ -338,6 +344,10 @@
         margin: 0.5vw;
         font-size: 1.9vw;
         border-radius: 1vw;
+    }
+    
+    .addProductInput:focus {
+        border: 0.2vw solid #5271FF;
     }
 
     .addProductLabel {

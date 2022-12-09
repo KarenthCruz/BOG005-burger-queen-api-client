@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import reactLogo from './assets/react.svg'
+// import reactLogo from './assets/react.svg'
 import './App.css'
 import './styles/loginView.css'
 import './styles/adminView.css'
-import { LoginView } from './pages/loginView.jsx'
-import { AdminView } from './pages/adminView.jsx'
+import { LoginView } from './pages/loginView.jsx';
+import { AdminView } from './pages/adminView.jsx';
+import { WaiterView } from './pages/waiterView.jsx';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path='/' element={<LoginView />} />
           <Route path='/admin-products' element={<AdminView />} />
+          <Route path='/waiter-orders' element={<WaiterView />} />
         </Routes>
       </BrowserRouter>
 
