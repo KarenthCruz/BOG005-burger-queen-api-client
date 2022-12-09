@@ -1,31 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 
 function OrderMenu(props) {
+    
+    const [productsToPrint, setProductsToPrint] = useState(props.productsMenu); 
+
+    const handlefilter = (filter) => {
+        console.log('id', filter)
+        const filtered = props.productsMenu.filter(product => product.type == filter);
+        setProductsToPrint(filtered)
+        console.log(filtered)
+        return filtered
+    }
 
     return (
         <section className="viewMenuOrder">
             <section className="menuBtns">
-                <button className="menuBreakfastBtn">
+                <button onClick={() => handlefilter('Desayuno')} className="menuBreakfastBtn">
                     <i className="fa-solid fa-bacon"></i>
                     Desayuno
                 </button>
-                <button className="menuLunchBtn active">
+                <button className="menuLunchBtn active" onClick={() => handlefilter('Almuerzo')}>
                     <i className="fa-solid fa-utensils"></i>
                     Almuerzo
                 </button>
-                <button className="menuDrinksBtn">
+                <button className="menuDrinksBtn" onClick={() => handlefilter('Bebidas')}>
                     <i className="fa-solid fa-wine-glass-empty"></i>
                     Bebidas
                 </button>
             </section>
 
             {/* Sección para mostrar los productos */}
-            <article className="containProduct">
-                <img className="productImage" srcSet={props.image} alt={props.name} />
-                <div className="productText">
-                    <p>{props.name} <span className="productPrice">${props.price}</span></p>
-                </div>
-            </article>
+            {productsToPrint.map((product, index) => (
+                <article className="containProduct" key={product.id}>
+                    <img className="productImage" srcSet={product.image} alt={product.name} />
+                    <div className="productText">
+                        <p>{product.name} <span className="productPrice">${product.price}</span></p>
+                    </div>
+                </article>
+            ))}
         </section>
 
     )
