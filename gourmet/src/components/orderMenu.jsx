@@ -27,30 +27,21 @@ function OrderMenu({ productsMenu, setShareMenu, shareMenu }) {
     }, [])
 
     const handleAdd = (product, index) => {
-        // const nextCounters = shareMenu.map((c, i) => {
-        //     if (i === index) {
-        //       // Increment the clicked counter
-        //       return c + 1;
-        //     } else {
-        //       // The rest haven't changed
-        //       return c;
-        //     }
-        //   })
         setShareMenu([...shareMenu, { id: product.id, name: product.name, price: product.price, qty: 1 } ]);
     }
-    console.log('asdasdasd', shareMenu)
+    console.log('shareMenu', shareMenu)
     function handleIncrementClick(index) {
         const nextCounters = counters.map((c, i) => {
-          if (i === index) {
+            if (i === index) {
             // Increment the clicked counter
             return c + 1;
-          } else {
+            } else {
             // The rest haven't changed
             return c;
-          }
+            }
         });
         setCounters(nextCounters);
-      }
+    }
     // const handleAdd = (name) => {
     //     if(shareMenu.find(el => el.name === name)){
     //         const pepe = name;

@@ -3,7 +3,7 @@ import { postNewOrder } from "../utils/petitions.js";
 
 
 // Formulario para crear la orden de pedido
-function OrderProducts({ shareMenu }) {
+function OrderProducts({ shareMenu, setShareMenu }) {
 
     // Estados para número de orden, nombre de usuario y orden
     const [numOrder, setNumOrder] = useState('');
@@ -28,9 +28,19 @@ function OrderProducts({ shareMenu }) {
         event.preventDefault();
         postNewOrder(numOrder, nameClientOrder, shareMenu, 'Pending', new Date())
             .then((response) => {
-                console.log('response', response)
+                setShareMenu([]);
+                setNameClientOrder('');
+                setNumOrder('')
             })
             .catch((error) => console.log(error))
+    }
+
+    // Eliminando los productos
+    const deleteHandler = (id) => {
+        const productToDelete = shareMenu.filter((productOrder) => productOrder.id !== id)
+        setShareMenu(productToDelete)
+        console.log('soy el producto a borrar', productToDelete)
+        // setShareMenu([...shareMenu, { id: product.id, name: product.name, price: product.price, qty: 1 } ]);
     }
 
     return (
@@ -80,6 +90,8 @@ function OrderProducts({ shareMenu }) {
                                         <td>{product.name}</td>
                                         <td>{product.qty}</td>
                                         <td>{product.price}</td>
+                                        <td onClick={() => deleteHandler(product.id)}>Delete</td>
+
                                     </tr>
                                 )})}
                             </tbody>

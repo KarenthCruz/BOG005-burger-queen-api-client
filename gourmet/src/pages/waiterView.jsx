@@ -9,8 +9,9 @@ import '../styles/waiterView.css'
 function WaiterView() {
     const [products, setProducts] = useState([]);
     const [shareMenu, setShareMenu] = useState([]);
+
     useEffect(() => {
-        // petición de la lista de productos
+    // petición de la lista de productos
         getProductList()
             .then((response) => {
                 setProducts(response.data)
@@ -32,12 +33,13 @@ function WaiterView() {
             {/* Vista del menu */}
             <OrderMenu
                 productsMenu={products}
-                setShareMenu={setShareMenu}
                 shareMenu={shareMenu}
+                setShareMenu={setShareMenu}
             />
             {/* Vista de la orden de pedido */}
             <OrderProducts
                 shareMenu={shareMenu}
+                setShareMenu={setShareMenu}
             />
 
         </section>
