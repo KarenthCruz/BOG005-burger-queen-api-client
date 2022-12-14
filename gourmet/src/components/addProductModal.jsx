@@ -21,18 +21,7 @@ function AddProductModal(props) {
   function typeMenuHandler(event) {
     setTypeMenu(event.target.value)
   }
-
-  // const [dataProducts, setDataProducts] = useState({nameProduct:'', priceProduct:'', typeMenu:'', imgProduct:''})
-
-  // function eventHandler(event){
-  //   setDataProducts({
-  //     ...dataProducts,
-  //     [event.target.name]: event.target.value
-  //   });
-  // }
-
   
-
   // Consumiendo la petición de imágen para tomar la URL
  async function changeImgURL(event , setImgProduct) {
     const uploadedImg = await event.target.files[0]
