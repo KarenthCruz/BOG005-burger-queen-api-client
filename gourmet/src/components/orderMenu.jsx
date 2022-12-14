@@ -89,7 +89,7 @@ function OrderMenu({ productsMenu, setShareMenu, shareMenu }) {
             <section className="menuOrderList">
                 {completeMenu.map((product, index) => (
                     <article className="containProductOrder" key={product.id}>
-                        <img className="productImage" srcSet={product.image} alt={product.name} />
+                        <img className="productImageOrder" srcSet={product.image} alt={product.name} />
                         <div className="productTextOrder">
                             <p>{product.name} <span className="productPrice">${product.price}</span></p>
                         </div>

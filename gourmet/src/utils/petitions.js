@@ -26,9 +26,9 @@ function getProductById(id) {
   return axios.get(urlAPI + `products/${id}`, { headers: { Authorization: 'Bearer ' + getToken() } })
 }
 // Editando la información del nuevo producto
-function patchProduct(id, name, price, type, image) {
+function patchProduct(name, price, type, image, id) {
   console.log('patch', id)
-  return axios.patch(urlAPI + `products/${id}`, { id, name, price, image, type }, { headers: { Authorization: 'Bearer ' + getToken() } })
+  return axios.patch(urlAPI + `products/${id}`, { name, price, image, type }, { headers: { Authorization: 'Bearer ' + getToken() } })
 }
 
 // Eliminando la información del nuevo producto
@@ -38,8 +38,8 @@ function eraseProduct(id) {
 }
 
 // Enviando la información para crear el nuevo producto
-function postNewProduct(id, name, price, type, image) {
-  return axios.post(urlAPI + 'products', { id, name, price, image, type }, { headers: { Authorization: 'Bearer ' + getToken() } })
+function postNewProduct(name, price, type, image) {
+  return axios.post(urlAPI + 'products', { name, price, image, type }, { headers: { Authorization: 'Bearer ' + getToken() } })
 }
 
 // Petición para obtener el URL de la imágen 
