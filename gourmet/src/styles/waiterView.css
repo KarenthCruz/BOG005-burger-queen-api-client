@@ -1,4 +1,22 @@
-.header{
+.waiterView{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.viewWaiter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.viewMenuOrder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
     height: 29vw;
     margin-bottom: 10px;
 }
@@ -8,12 +26,40 @@
     margin: 6px 0px -2px 0px;
 }
 
-.navLink{
+.navLink {
     text-decoration: none;
     color: white;
     margin: 15px;
     font-size: 4.6vw;
     font-weight: 300;
+}
+
+.menuOrderList {
+    width: 350px;
+    display: flex;
+    padding: 12px;
+    background-color: #E9E8E9;
+    border-radius: 2vw;
+    border: 0.6vw solid #EC297E;
+    overflow-x: auto;
+}
+
+
+.containProductOrder {
+    width: 27vw;
+    display: flex;
+    padding: 6px;
+    background: white;
+    border-radius: 20px;
+    margin: 3px;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.productImage {
+    width: 50px;
+    height: 50px;
 }
 
 .orderProdSect {
@@ -27,15 +73,16 @@
     border-radius: 2vw;
     border: 0.4vw solid #EC297E;
     font-size: 12px;
+    margin-top: 10px;
 }
 
-.titleOrderProduct{
+.titleOrderProduct {
     color: #454343;
     font-size: 4.2vw;
     font-weight: 400;
 }
 
-.orderProductInput{
+.orderProductInput {
     width: 49vw;
     height: 7vw;
     margin: 0.5vw;
@@ -46,7 +93,7 @@
     border: 0.1vw solid white;
 }
 
-.orderDetailsCont  {
+.orderDetailsCont {
     display: grid;
     grid-template-columns: 2fr 3fr;
     grid-template-rows: 1fr 1fr;
@@ -55,14 +102,17 @@
     margin: 10px 0;
     align-items: center;
 }
+
 .boxOrderSection {
     background-color: #ffffff;
     border-radius: 5px;
 }
+
 .boxOrder {
     width: 100%;
     border-spacing: 0px;
 }
+
 .rowOrder {
     background: #EC297E;
     border-radius: 5px;
@@ -75,28 +125,34 @@
     border-color: inherit;
 }
 
-.titleDeleteOrder{
+.titleDeleteOrder {
     border-radius: 0 5px 5px 0;
     border: 0 solid;
     border-color: inherit;
 }
 
-.textOrder{
-    color:#454343; 
+.textOrder {
+    color: #454343;
 }
 
-tbody, td, tfoot, th, thead, tr {
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
     border: 0 solid;
     border-color: inherit;
     border-spacing: 0;
     overflow: hidden;
 }
+
 th {
     font-weight: 400;
     color: #ffffff;
 }
 
-.tableOrderTotal{
+.tableOrderTotal {
     width: 100%;
     background-color: #ffda00;
     border-radius: 5px;
@@ -108,7 +164,7 @@ th {
     flex-wrap: wrap;
 }
 
-.orderAddBtn{
+.orderAddBtn {
     width: 30vw;
     height: 7vw;
     color: white;
@@ -123,7 +179,22 @@ th {
     box-shadow: rgb(0 0 0 / 30%) 0 1px 2px;
 }
 
-.cancelOrderBtn{
+.orderMenuBtn{
+    width: 22vw;
+    height: 7vw;
+    color: white;
+    margin-top: 3vw;
+    font-size: 3vw;
+    font-weight: 400;
+    border-radius: 1vw;
+    align-items: center;
+    border: white;
+    font-family: 'Poppins', sans-serif;
+    background-color: #EC297E;
+    box-shadow: rgb(0 0 0 / 30%) 0 1px 2px;
+}
+
+.cancelOrderBtn {
     width: 30vw;
     height: 7vw;
     color: white;
@@ -138,17 +209,23 @@ th {
     box-shadow: rgb(0 0 0 / 30%) 0 1px 2px;
 }
 
-.menuBtns{
+.menuBtns {
     display: flex;
 }
-.menuBreakfastBtn, .menuLunchBtn, .menuDrinksBtn{
+
+.menuBreakfastBtn,
+.menuLunchBtn,
+.menuDrinksBtn {
     background-color: #ffda00;
     padding: 10px;
     border: none;
     border-radius: 15px 15px 0 0;
     margin: 0 4px;
 }
-.menuBreakfastBtn i, .menuLunchBtn i, .menuDrinksBtn i{
+
+.menuBreakfastBtn i,
+.menuLunchBtn i,
+.menuDrinksBtn i {
     margin: 0 5px;
 }
 
@@ -156,3 +233,8 @@ th {
     background-color: #EC297E;
 }
 
+.productTextOrder p {
+    color: #404040;
+    font-size: 3vw;
+    text-align: center;
+}

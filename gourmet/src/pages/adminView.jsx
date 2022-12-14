@@ -15,6 +15,7 @@ import { Header } from "../components/header";
 
 
 function AdminView() {
+    //Estados de modal, producto, editar y recargar los productos
     const [isOpenAddProductModal, openAddProductModal, closeAddProductModal] = useModal('');
     const [isOpenEditProductModal, openEditProductModal, closeEditProductModal] = useModal('');
     const [products, setProducts] = useState([]);
@@ -25,6 +26,7 @@ function AdminView() {
     const [typeMenu, setTypeMenu] = useState('')
     const [imgProduct, setImgProduct] = useState('')
 
+    // Manejadores de los eventos
     function nameProductHandler(event) {
         setNameProduct(event.target.value)
     }
@@ -56,7 +58,7 @@ function AdminView() {
     }
 
     useEffect(() => {
-        // petición de la lista de productos
+     // petición de la lista de productos
         getProductList()
             .then((response) => {
                 console.log(response)
@@ -76,6 +78,7 @@ function AdminView() {
         });
     };
 
+    // Función para editar los productos
     function onSubmitEditFormHandler(event, nameTyped, priceTyped, typeTyped, imageLoaded, idProduct) {
         event.preventDefault();
         const priceNumber = parseInt(priceTyped);
@@ -84,7 +87,8 @@ function AdminView() {
             setReloadProducts(!reloadProducts);
         });
     };
-
+    
+    // Usando la petición para traer los productos por su id
     const handleEdit = (id) => {
         console.log('id', id)
         getProductById(id).then((response) => {
@@ -93,7 +97,7 @@ function AdminView() {
             openEditProductModal(true)
         })
     }
-
+    // Eliminando los productos y recargando la lista
     const handleDelete = (id) => {
         eraseProduct(id).then(() => setReloadProducts(!reloadProducts))
     }
@@ -127,6 +131,7 @@ function AdminView() {
                         />
                     ))}
                 </section>
+                 {/* // Modal para editar productos */}
                 {productToEditModal && (<section className="AdminContBtn">
                     <EditProductModal
                         isOpen={isOpenEditProductModal}
@@ -138,6 +143,7 @@ function AdminView() {
                     </EditProductModal>
                 </section>)}
                 <section className="AdminContBtn">
+                    {/* // Modal para agregar productos */}
                     <AddProductModal
                         isOpen={isOpenAddProductModal}
                         closeModal={closeAddProductModal}
@@ -149,7 +155,7 @@ function AdminView() {
                     Agregar Producto
                 </button>
                 
-                {/* Formulario para agregar productos */}
+                {/* Formulario para agregar productos para vista de escritorio */}
                 <section className="addProdForm">
                     <section className="addProModal">
                         <h2 className="titleAddProduct">

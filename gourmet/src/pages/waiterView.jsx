@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { getProductList } from "../utils/petitions.js";
 import { Header } from "../components/header";
-import { Order } from "../components/ordenPedido";
+import { OrderProducts } from "../components/orderProducts";
 import { OrderMenu } from "../components/orderMenu.jsx";
 import '../styles/waiterView.css'
 
 
 function WaiterView() {
     const [products, setProducts] = useState([]);
-
+    const [shareMenu, setShareMenu] = useState([]);
     useEffect(() => {
         // petición de la lista de productos
         getProductList()
             .then((response) => {
-                console.log('nuestra respuesta', response)
                 setProducts(response.data)
             })
             .catch((error) => console.log(error))
     }, [])
 
-    console.log('products', products)
-
     return ( // Maqueta componente Admin view
-        <section className="adminView">
+        <section className="waiterView">
             <Header>
                 <nav className="navMenu">
                     <ul className="navAMenu">
@@ -32,11 +29,16 @@ function WaiterView() {
                     </ul>
                 </nav>
             </Header>
-
+            {/* Vista del menu */}
             <OrderMenu
                 productsMenu={products}
+                setShareMenu={setShareMenu}
+                shareMenu={shareMenu}
             />
-            <Order />
+            {/* Vista de la orden de pedido */}
+            <OrderProducts
+                shareMenu={shareMenu}
+            />
 
         </section>
 
