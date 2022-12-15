@@ -39,8 +39,6 @@ function OrderProducts({ shareMenu, setShareMenu }) {
     const deleteHandler = (id) => {
         const productToDelete = shareMenu.filter((productOrder) => productOrder.id !== id)
         setShareMenu(productToDelete)
-        console.log('soy el producto a borrar', productToDelete)
-        // setShareMenu([...shareMenu, { id: product.id, name: product.name, price: product.price, qty: 1 } ]);
     }
 
     return (

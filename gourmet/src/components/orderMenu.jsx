@@ -17,7 +17,7 @@ function OrderMenu({ productsMenu, setShareMenu, shareMenu }) {
     }
 
     useEffect(() => {
-    // petición de la lista de productos
+        // petición de la lista de productos
         getProductList()
             .then((response) => {
                 setProductsState(response.data)
@@ -26,32 +26,26 @@ function OrderMenu({ productsMenu, setShareMenu, shareMenu }) {
         setProductsDefaul(true)
     }, [])
 
-    const handleAdd = (product, index) => {
-        setShareMenu([...shareMenu, { id: product.id, name: product.name, price: product.price, qty: 1 } ]);
+
+    // Adiciona y aumenta la cantidad del producto en la orden
+    const handleIncrementClick = (product) => {
+        const stayInOrder = shareMenu.find(
+            (productOrder) => productOrder.id === product.id
+        );
+        if (stayInOrder) {
+            setShareMenu(
+                shareMenu.map((productMenu) => {
+                    if (productMenu.id === product.id) {
+                        return { ...productMenu, qty: (productMenu.qty += 1) }
+                    } else {
+                        return productMenu;
+                    }
+                })
+            );
+        } else {
+            setShareMenu([...shareMenu, { ...product, qty: 1 }]);
+        }
     }
-    console.log('shareMenu', shareMenu)
-    function handleIncrementClick(index) {
-        const nextCounters = counters.map((c, i) => {
-            if (i === index) {
-            // Increment the clicked counter
-            return c + 1;
-            } else {
-            // The rest haven't changed
-            return c;
-            }
-        });
-        setCounters(nextCounters);
-    }
-    // const handleAdd = (name) => {
-    //     if(shareMenu.find(el => el.name === name)){
-    //         const pepe = name;
-    //         console.log(pepe)
-    //         shareMenu.map
-    //         setShareMenu([...shareMenu, { name, qty: 1 }]);
-    //     } 
-    //     console.log('pepe')
-    //     setShareMenu([...shareMenu, { name, qty: 1 }]);
-    // }
 
     const completeMenu = productsDefaul ? productsState : productsToPrint;
 
@@ -85,7 +79,7 @@ function OrderMenu({ productsMenu, setShareMenu, shareMenu }) {
                             <p>{product.name} <span className="productPrice">${product.price}</span></p>
                         </div>
 
-                        <button className="orderMenuBtn" onClick={() => handleAdd(product, index) }>
+                        <button className="orderMenuBtn" onClick={() => handleIncrementClick(product)}>
                             Agregar
                         </button>
                     </article>
