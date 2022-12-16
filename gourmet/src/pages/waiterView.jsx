@@ -11,7 +11,7 @@ function WaiterView() {
     const [shareMenu, setShareMenu] = useState([]);
 
     useEffect(() => {
-    // petición de la lista de productos
+        // petición de la lista de productos
         getProductList()
             .then((response) => {
                 setProducts(response.data)
@@ -30,17 +30,19 @@ function WaiterView() {
                     </ul>
                 </nav>
             </Header>
-            {/* Vista del menu */}
-            <OrderMenu
-                productsMenu={products}
-                shareMenu={shareMenu}
-                setShareMenu={setShareMenu}
-            />
-            {/* Vista de la orden de pedido */}
-            <OrderProducts
-                shareMenu={shareMenu}
-                setShareMenu={setShareMenu}
-            />
+            <section className="productsFormOrder">
+                {/* Vista del menu */}
+                <OrderMenu
+                    productsMenu={products}
+                    shareMenu={shareMenu}
+                    setShareMenu={setShareMenu}
+                />
+                {/* Vista de la orden de pedido */}
+                <OrderProducts
+                    shareMenu={shareMenu}
+                    setShareMenu={setShareMenu}
+                />
+            </section>
 
         </section>
 
