@@ -9,12 +9,12 @@ function OrderProducts({ shareMenu, setShareMenu }) {
     const [numOrder, setNumOrder] = useState('');
     const [nameClientOrder, setNameClientOrder] = useState('');
     const [totalAmount, setTotalAmount] = useState(0.00);
-    
+
     useEffect(() => {
-        let reduce = shareMenu.reduce((accumulator, current) => accumulator + current.price, 0);
+        let reduce = shareMenu.reduce((accumulator, current) => accumulator + current.price * current.qty, 0);
         setTotalAmount(reduce)
     }, [shareMenu])
-    
+
     // Manejadores de eventos para orden y nombre de cliente
     const numOrderHandler = (event) => {
         setNumOrder(event.target.value)
@@ -41,6 +41,10 @@ function OrderProducts({ shareMenu, setShareMenu }) {
         setShareMenu(productToDelete)
     }
 
+    const priceHandler = (price, qty) => {
+        return (price * qty)
+    }
+
     return (
         // Estructura del componente
         <section className="orderProdSect">
@@ -53,7 +57,7 @@ function OrderProducts({ shareMenu, setShareMenu }) {
                 <form className="orderForm" onSubmit={orderPetition} >
                     <div className="orderDetailsCont">
 
-                        <label id="textOrder">Número de la orden</label>
+                        <label id="textOrder" className="textOrder">Número de la orden</label>
 
                         <input
                             className="orderProductInput"
@@ -61,7 +65,7 @@ function OrderProducts({ shareMenu, setShareMenu }) {
                             value={numOrder}
                             onChange={numOrderHandler}
                         />
-                        <label id="nameOrder">Nombre del cliente</label>
+                        <label id="nameOrder" className="nameOrder">Nombre del cliente</label>
                         <input
                             className="orderProductInput"
                             type='text'
@@ -83,15 +87,18 @@ function OrderProducts({ shareMenu, setShareMenu }) {
                             <tbody className="bodyOrder">
                                 {/* Total de la orden  */}
                                 {shareMenu.map((product) => {
-                                return (
-                                    <tr key={product.id}>
-                                        <td>{product.name}</td>
-                                        <td>{product.qty}</td>
-                                        <td>{product.price}</td>
-                                        <td onClick={() => deleteHandler(product.id)}>Delete</td>
+                                    return (
+                                        <tr key={product.id}>
+                                            <td>{product.name}</td>
+                                            <td>{product.qty}</td>
+                                            <td>{priceHandler(product.price, product.qty)}</td>
+                                            <td onClick={() => deleteHandler(product.id)}>
+                                                <i className="fa-solid fa-trash"></i>
+                                            </td>
 
-                                    </tr>
-                                )})}
+                                        </tr>
+                                    )
+                                })}
                             </tbody>
                         </table>
                         <section className="tableOrderTotal">Total: ${totalAmount}</section>

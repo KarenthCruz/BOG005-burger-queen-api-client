@@ -27,7 +27,7 @@ function OrderMenu({ productsMenu, setShareMenu, shareMenu }) {
     }, [])
 
 
-    // Adiciona y aumenta la cantidad del producto en la orden
+    // Adiciona e incrementa la cantidad del producto en la orden
     const handleIncrementClick = (product) => {
         const stayInOrder = shareMenu.find(
             (productOrder) => productOrder.id === product.id
