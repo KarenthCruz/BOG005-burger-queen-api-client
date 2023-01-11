@@ -16,17 +16,7 @@
     align-items: center;
 }
 
-.header {
-    height: 29vw;
-    margin-bottom: 10px;
-}
-
-.headerLogoBig {
-    width: 50vw;
-    margin: 6px 0px -2px 0px;
-}
-
-.navLink {
+.navLinkWaiter {
     text-decoration: none;
     color: white;
     margin: 15px;
